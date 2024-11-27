@@ -38,8 +38,8 @@ Route::group(['middleware'=>'guest'],function(){
     Route::post('/loginpostroomid',[AuthController::class,'loginPostRoomId']);
 
 
-    Route::get('/',[RoomController::class,'getAllroomAlbum']);
-    // Route::get('/',[BookingController::class,'showfirstpage']);
+    // Route::get('/',[RoomController::class,'getAllroomAlbum']);
+    Route::get('/',[BookingController::class,'showfirstpage']);
     
 
 

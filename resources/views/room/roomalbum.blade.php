@@ -116,24 +116,32 @@
                                 </svg>
 
                                 <div class="card-body">
-                                    <p class="card-title fw-bold"  >{{ $room->roomName }}</p>
+                                    <p class="card-title fw-bold">{{ $room->roomName }}</p>
                                     <div class="card-text">
 
-                                       {{-- @foreach($bookingList as $booking)
-                                     
-                                       <p1>{{booking->bookingAgenda}}</p1>
-                                        <p2>{{booking->bookingTimeStart}}</p2>
-                                        <p3>{{boking->bookingTimeFinish}}</p3>
-                                        <p4>{{booking->userId}}</p4>
-                                    
-                                       @endforeach --}}
+                                        @foreach ($bookingList as $booking)
+                                             {{-- @if ($booking->roomId === $room->roomId)  --}}
+                                                @if($room->roomId)
+                                                <p class="text-decoration-underline">{{ $booking->bookingAgenda}}</p>
+                                          
+                                                <p>{{ $booking->bookingTimeStart . ' - ' . $booking->bookingTimeFinish }}
+                                                </p>
+                                                <p> ชวัลลักษณ์ เพชรอย่างดี (082-6193666)</p>
+                                                {{-- <p>{{$booking->bookingTimeFinish}}</p> --}}
+                                                {{-- <p>{{$booking->userId}}</p> --}}
+                                                {{-- <p>{{$booking->user->firstName." ".$booking->user->lastName}}</p> --}}
+                                                {{-- echo("w"); --}}
+                                            @endif
+                                        @endforeach
+
+
                                         {{-- <p>การปรับโครงสร้างบริษัท 10.00-12.00 ploy ploy 082-6193666</p> --}}
-                                        
+
                                         {{-- <th>{{booking->bookingAgenda}}</th>
                                         <th>{{booking->bookingTimeStart}}</th>
                                         <th>{{booking->bookingTimeFinish}}</th>
                                         <th>{{booking->user->firstName." ".booking->user->lastName}}</th> --}}
-                                        <p1 class="text-decoration-underline">การปรับโครงสร้างบริษัท</p1><br>
+                                        {{-- <p1 class="text-decoration-underline">การปรับโครงสร้างบริษัท</p1><br>
                                         <p2> 12.00-13.00 <br>
                                             ชวัลลักษณ์ เพชรอย่างดี (082-6193666)
                                         </p2>
@@ -150,8 +158,8 @@
                                         <p2> 12.00-13.00 <br>
                                             ชวัลลักษณ์ เพชรอย่างดี (082-6193666)
                                         </p2>
-                                      </br>
-                                        
+                                      </br> --}}
+
 
 
 

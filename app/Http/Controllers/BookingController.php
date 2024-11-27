@@ -53,7 +53,7 @@ class BookingController extends Controller
             return redirect('/booking/' . $roomId)->with('message', 'ต้องจองเวลาเท่ากับ 1 ชั่วโมงเท่านั้น');
         }
     
-        // Attempt to add the booking
+       
         $result = BookingRepository::addBooking(
             $bookingAgenda,
             $bookingDate,
@@ -63,7 +63,7 @@ class BookingController extends Controller
             $roomId
         );
     
-        // Check for success or failure
+       
         if ($result) {
             return redirect('/roombooking')->with('message', 'จองสำเร็จ');
         }
@@ -118,9 +118,9 @@ class BookingController extends Controller
         return redirect('/booking/'.$roomId);
         // return redirect('/room/'.$roomId);
     }
-    public static function showfirstpage($roomId){
+    public static function showfirstpage(){
         $roomList = RoomRepository::getAll();
-        $bookingList = BookingRepository::getbookingincurrentdate($roomId);
+        $bookingList = BookingRepository::getbookingincurrentdate();
         return view('room/roomalbum',compact('roomList','bookingList'));
         
     }

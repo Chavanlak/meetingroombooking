@@ -120,10 +120,61 @@ class BookingRepository
     //     return $datenow;
     // }
 
-    public static function getbookingincurrentdate($roomId){
-        $bookingList = Booking::select(['booking.bookingAgenda,booking.bookingTimeStart,booking.bookingTimeFinish,booking.userId'])
-        ->whereRow('booking.bookingDate = CURRENT_DATE')->where('booking.roomId','=',$roomId)
-        ->order('booking.bookingTimestart','asc');
+    public static function getbookingincurrentdate()
+    {
+        // $bookingList = Booking::select(['booking.bookingAgenda,booking.bookingTimeStart,booking.bookingTimeFinish,booking.userId'])
+        // ->whereRow('booking.bookingDate = CURRENT_DATE')->where('booking.roomId','=',$roomId)
+        // ->order('booking.bookingTimestart','asc');
+        $bookingList = DB::table('booking')
+            ->join('user', 'booking.userId', '=', 'user.userId')
+            ->select(
+                'booking.bookingAgenda',
+                'booking.bookingTimeStart',
+                'booking.bookingTimeFinish',
+                'booking.userId',
+                DB::raw('DATE_FORMAT(booking.bookingDate, "%d/%m/%y") AS BookingDate'),
+                'user.firstName',
+                'user.lastName'
+            )
+            // ->where('booking.roomId', '=', $roomId)
+            ->where('booking.bookingDate', DB::raw('CURDATE()'))
+            ->orderBy('booking.bookingTimeStart', 'asc')
+            ->get();
         return $bookingList;
+        // DB::table('booking')
+        // ->join('user', 'booking.userId', '=', 'user.userId')
+        // ->select(
+        //     'booking.bookingAgenda',
+        //     'booking.bookingTimeStart',
+        //     'booking.bookingTimeFinish',
+        //     'booking.userId',
+        //     DB::raw('DATE_FORMAT(booking.bookingDate, "%d/%m/%y") AS BookingDate'),
+        //     'user.firstName',
+        //     'user.lastName'
+        // )
+        // // ->where('booking.roomId', $roomId)
+        // ->where('booking.bookingDate', DB::raw('CURDATE()'))
+        // ->orderBy('booking.bookingTimeStart', 'asc')
+        // ->get();
+
+        // dd(DB::table('booking')
+        // ->join('user', 'booking.userId', '=', 'user.userId')
+        // ->select(
+        //     'booking.bookingAgenda',
+        //     'booking.bookingTimeStart',
+        //     'booking.bookingTimeFinish',
+        //     'booking.userId',
+        //     DB::raw('DATE_FORMAT(booking.bookingDate, "%d/%m/%y") AS BookingDate'),
+        //     'user.firstName',
+        //     'user.lastName'
+        // )
+        // ->where('booking.roomId', $roomId= 1)
+        // ->where('booking.bookingDate', DB::raw('CURDATE()'))
+        // ->orderBy('booking.bookingTimeStart', 'asc')
+        // ->get());
+        // dd(DB::table('booking')->select(['booking.bookingAgenda,booking.bookingDate,booking.bookingTimeStart,booking.bookingTimeFinish,booking.userId'])
+        // ->whereRaw('booking.bookingDate = CURRENT_DATE')
+        // ->orderBy('booking.bookingTimeStart','asc'));
+
     }
 }
